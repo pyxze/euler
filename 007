@@ -1,0 +1,25 @@
+// 10001th prime
+
+bool prime;
+int nth = 0;
+int limit = 10001;
+
+for (int i = 2; ; i++)
+{
+	prime = true;
+	for (int j = 2; j < i; j++)
+	{
+		if (i % j == 0)
+		{
+			prime = false;
+			break;
+		}
+	}
+	if (prime)
+	{
+		nth++;
+		Console.WriteLine(nth + " - " + i);
+	}
+	if (nth == limit)
+		break;
+}

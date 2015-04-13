@@ -1,4 +1,4 @@
-// 10001th prime
+// 10001st prime
 
 bool prime;
 int nth = 0;

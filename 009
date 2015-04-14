@@ -1,0 +1,16 @@
+// product of pythagorean triplet with sum of 1000
+
+for (int a = 1; a < 1000; a++)
+{
+    for (int b = a + 1; b < 1000; b++)
+    {
+        for (int c = b + 1; c < 1000; c++)
+        {
+            if ((a + b + c) == 1000)
+            {
+                if ((a*a + b*b) == (c * c))
+                    Console.WriteLine(a + " * " + b + " * " + c + " = " + (a * b * c));
+            }
+        }
+    }
+}

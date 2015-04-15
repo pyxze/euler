@@ -1,0 +1,43 @@
+// first triangle number to have over five hundred divisors
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _012
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; ; i++)
+            {
+                long sum = 0;
+                List<long> products = new List<long>();
+                for (int j = 1; j <= i; j++)
+                {
+                    sum += j;
+                }
+                for (long k = 1; k <= sum; k++)
+                {
+                    if (sum % k == 0)
+                    {
+                        products.Add(k);
+                    }
+                }
+                if (products.Count > 500)
+                {
+                    Console.Write(sum);
+                    foreach (var product in products)
+                    {
+                        Console.Write(", " + product);
+                    }
+                    Console.WriteLine();
+                    break;
+                }
+            }
+        }
+    }
+}

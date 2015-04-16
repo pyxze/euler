@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjectEuler
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var last = 1;
+            var current = 2;
+            var tmp = 0;
+            var sum = 2;
+            Console.WriteLine(last);
+            Console.WriteLine(current);
+            do
+            {
+                tmp = current;
+                current = current + last;
+                last = tmp;
+                Console.WriteLine(current);
+                if (current % 2 == 0)
+                    sum += current;
+            }
+            while ((current + last) < 4000000);
+            Console.WriteLine("Sum: " + sum);
+        }
+    }
+}

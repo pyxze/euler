@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _004
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var max = 0;
+            for (var i = 100; i < 1000; i++)
+            {
+                for (var j = 100; j < 1000; j++)
+                {
+                    int tmp = i * j;
+                    if ((tmp.ToString().Equals(ReverseString(tmp.ToString()))) && tmp > max)
+                    {
+                        max = tmp;
+                        Console.WriteLine(i + ", " + j + ", " + max);
+                    }
+                }
+            }
+        }
+
+        public static string ReverseString(string str)
+        {
+            string reverse = "";
+            for (var i = str.Length - 1; i >= 0; i-- )
+            {
+                reverse += str[i];
+            }
+
+            return reverse;
+        }
+    }
+}

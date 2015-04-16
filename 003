@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _003
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long target = 600851475143;
+            for (long i = 2; i < target; i++)
+            {
+                if ((target % i == 0) && IsPrime(i))
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(i);
+                }
+            }
+        }
+
+        static bool IsPrime(long candidate)
+        {
+            var test = true;
+            for (long i = 2; i < candidate - 1; i++ )
+            {
+                if (candidate % i == 0)
+                {
+                    test = false;
+                }
+            }
+            return test;
+        }
+    }
+}

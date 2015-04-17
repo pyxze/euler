@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _015
+{
+    class Program
+    {
+        public class Node
+        {
+            public string Name;
+            public static int sum = 0;
+
+            public Node(string Name)
+            {
+                this.Name = Name;
+            }
+
+            public List<Node> AdjacencyList = new List<Node>();
+
+            public void Search(Node node)
+            {
+                
+                foreach (var n in node.AdjacencyList)
+                {
+                    if (n.Name == "I")
+                    {
+                        sum++;
+                    }
+                    else
+                    {
+                        Search(n);
+                    }
+                }
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int count = 1;
+            int sides = 21;
+            for (int i = 0; i <= sides; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write(count + " ");
+                    count++;
+                    if (j == i)
+                        Console.WriteLine();
+                }
+            }
+            for (int i = sides - 1; i >= 0; i--)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write(count + " ");
+                    count++;
+                    if (j == i)
+                        Console.WriteLine();
+                }
+            }
+
+//            List<Node> nodeList = new List<Node>();
+//
+//            nodeList.Add(new Node("A"));
+//            nodeList.Add(new Node("B"));
+//            nodeList.Add(new Node("C"));
+//            nodeList.Add(new Node("D"));
+//            nodeList.Add(new Node("E"));
+//            nodeList.Add(new Node("F"));
+//            nodeList.Add(new Node("G"));
+//            nodeList.Add(new Node("H"));
+//            nodeList.Add(new Node("I"));
+//
+//            Node nodeItem;
+//            nodeItem = nodeList.Find(delegate(Node node){ return node.Name == "A"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "B"; }));
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "C"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "B"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "D"; }));
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "E"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "C"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "E"; }));
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "F"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "D"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "G"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "E"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "G"; }));
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "H"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "F"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "H"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "G"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "I"; }));
+//
+//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "H"; });
+//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "I"; }));
+
+//            foreach (var node in nodeList)
+//            {
+//                Console.Write(node.Name + ": ");
+//                foreach (var node1 in node.AdjacencyList)
+//                {
+//                    Console.Write(", " + node1.Name);
+//                }
+//                Console.WriteLine();
+//            }
+
+//            nodeItem.Search(nodeList.Find(delegate(Node node) { return node.Name == "A"; }));
+//            Console.WriteLine(Node.sum);
+        }
+    }
+}

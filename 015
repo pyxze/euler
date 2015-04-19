@@ -1,3 +1,6 @@
+// extremely quick and dirty solution to finding number of paths in a square shaped grid
+// with a diamond shaped set of nodes
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +14,35 @@ namespace _015
     {
         public class Node
         {
-            public string Name;
-            public static int sum = 0;
+            public int id;
+            public static long sum = 0;
 
-            public Node(string Name)
+            public Node(int id)
             {
-                this.Name = Name;
+                this.id = id;
+            }
+
+            public Node()
+            {
             }
 
             public List<Node> AdjacencyList = new List<Node>();
 
-            public void Search(Node node)
+            // this method takes a starting node and the number of sides
+            // it then follows each path, calling the method recursively at each node
+            // and increasing the sum of paths each time it reaches the last node
+            public void Search(Node node, int sides)
             {
-                
+                int searchNumber = (sides + 1) * (sides + 1);
                 foreach (var n in node.AdjacencyList)
                 {
-                    if (n.Name == "I")
+                    if (n.id == searchNumber)
                     {
                         sum++;
                     }
                     else
                     {
-                        Search(n);
+                        Search(n, sides);
                     }
                 }
             }
@@ -41,12 +51,17 @@ namespace _015
         static void Main(string[] args)
         {
             int count = 1;
-            int sides = 21;
+            int sides = 20;
+            int nodesize = sides + 1;
+            int[,] nodes = new int[sides * 2 + 1, nodesize];
+
+            // fill array with node ids walking up and down triangle shape
             for (int i = 0; i <= sides; i++)
             {
                 for (int j = 0; j <= i; j++)
                 {
                     Console.Write(count + " ");
+                    nodes[i, j] = count;
                     count++;
                     if (j == i)
                         Console.WriteLine();
@@ -57,65 +72,90 @@ namespace _015
                 for (int j = 0; j <= i; j++)
                 {
                     Console.Write(count + " ");
+                    nodes[sides * 2 - i, j] = count;
                     count++;
                     if (j == i)
                         Console.WriteLine();
                 }
             }
 
-//            List<Node> nodeList = new List<Node>();
-//
-//            nodeList.Add(new Node("A"));
-//            nodeList.Add(new Node("B"));
-//            nodeList.Add(new Node("C"));
-//            nodeList.Add(new Node("D"));
-//            nodeList.Add(new Node("E"));
-//            nodeList.Add(new Node("F"));
-//            nodeList.Add(new Node("G"));
-//            nodeList.Add(new Node("H"));
-//            nodeList.Add(new Node("I"));
-//
-//            Node nodeItem;
-//            nodeItem = nodeList.Find(delegate(Node node){ return node.Name == "A"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "B"; }));
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "C"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "B"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "D"; }));
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "E"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "C"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "E"; }));
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "F"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "D"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "G"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "E"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "G"; }));
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "H"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "F"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "H"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "G"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "I"; }));
-//
-//            nodeItem = nodeList.Find(delegate(Node node) { return node.Name == "H"; });
-//            nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.Name == "I"; }));
+            // create nodes with values from array walking up and down triangle
+            List<Node> nodeList = new List<Node>();
 
-//            foreach (var node in nodeList)
-//            {
-//                Console.Write(node.Name + ": ");
-//                foreach (var node1 in node.AdjacencyList)
-//                {
-//                    Console.Write(", " + node1.Name);
-//                }
-//                Console.WriteLine();
-//            }
+            for (int i = 0; i <= sides; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write(nodes[i,j]);
+                    nodeList.Add(new Node(nodes[i, j]));
+                }
+                Console.WriteLine();
+            }
 
-//            nodeItem.Search(nodeList.Find(delegate(Node node) { return node.Name == "A"; }));
-//            Console.WriteLine(Node.sum);
+            for (int i = sides - 1; i >= 0; i--)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write(nodes[sides * 2 - i, j]);
+                    nodeList.Add(new Node(nodes[sides * 2 - i, j]));
+                }
+                Console.WriteLine();
+            }
+
+            // build adjacency lists walking up and down triangle again
+            for (int i = 0; i <= sides -1; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Node nodeItem;
+                    nodeItem = nodeList.Find(delegate(Node node) { return node.id == nodes[i, j]; });
+                    nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i+1, j]; }));
+                    nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i+1, j+1]; }));
+                }
+            }
+
+            for (int i = sides; i <= sides * 2 - 1; i++)
+            {
+                for (int j = 0; j <= sides * 2 - i; j++)
+                {
+                    if (j == 0)
+                    {
+                        Node nodeItem;
+                        nodeItem = nodeList.Find(delegate(Node node) { return node.id == nodes[i, j]; });
+                        nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i + 1, j]; }));
+                    }
+                    else if (j == sides * 2 - i)
+                    {
+                        Node nodeItem;
+                        nodeItem = nodeList.Find(delegate(Node node) { return node.id == nodes[i, j]; });
+                        nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i + 1, j - 1]; }));
+                    }
+                    else
+                    {
+                        Node nodeItem;
+                        nodeItem = nodeList.Find(delegate(Node node) { return node.id == nodes[i, j]; });
+                        nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i + 1, j - 1]; }));
+                        nodeItem.AdjacencyList.Add(nodeList.Find(delegate(Node node) { return node.id == nodes[i + 1, j]; }));
+                    }
+                }
+            }
+
+            // show nodes with adjacent nodes
+            foreach (var node in nodeList)
+            {
+                Console.Write(node.id + ": ");
+                foreach (var node1 in node.AdjacencyList)
+                {
+                    Console.Write(", " + node1.id);
+                }
+                Console.WriteLine();
+            }
+
+            // start search
+            Node nodeItemSearch = new Node();
+            nodeItemSearch.Search(nodeList.Find(delegate(Node node) { return node.id == 1; }), sides);
+            Console.WriteLine(Node.sum);
         }
     }
 }
+

@@ -1,5 +1,9 @@
 // extremely quick and dirty solution to finding number of paths in a square shaped grid
 // with a diamond shaped set of nodes
+//
+// useful resources
+// https://msdn.microsoft.com/en-us/library/aa289152(v=vs.71).aspx
+// http://www.cs.cornell.edu/courses/cs2112/2012sp/lectures/lec24/lec24-12sp.html
 
 using System;
 using System.Collections.Generic;

@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace _016
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            BigInteger pow = 1;
+            for (int i = 1; i <= 1000; i++)
+            {
+                pow = pow * 2;
+                Console.WriteLine(i + ": " + pow);
+            }
+
+            int sum = 0;
+            var powString = pow.ToString();
+            foreach (var c in powString)
+            {
+                sum += int.Parse(c.ToString(), System.Globalization.NumberStyles.Integer);
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}

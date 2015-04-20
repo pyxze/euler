@@ -1,0 +1,235 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _017
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int sum = 0;
+            for (int i = 1; i <= 1000; i++)
+            {
+                string aye = i.ToString().PadLeft(4, '0');
+
+                if (aye[0] == '1')
+                {
+                    Console.WriteLine("One Thousand");
+                    sum += "One Thousand".Replace(" ", "").Length;
+                    continue;
+                }
+
+
+                if (aye[1] == '1')
+                {
+                    Console.Write("One Hundred ");
+                    sum += "One Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '2')
+                {
+                    Console.Write("Two Hundred ");
+                    sum += "Two Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '3')
+                {
+                    Console.Write("Three Hundred ");
+                    sum += "Three Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '4')
+                {
+                    Console.Write("Four Hundred ");
+                    sum += "Four Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '5')
+                {
+                    Console.Write("Five Hundred ");
+                    sum += "Five Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '6')
+                {
+                    Console.Write("Six Hundred ");
+                    sum += "Six Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '7')
+                {
+                    Console.Write("Seven Hundred ");
+                    sum += "Seven Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '8')
+                {
+                    Console.Write("Eight Hundred ");
+                    sum += "Eight Hundred".Replace(" ", "").Length;
+                }
+                else if (aye[1] == '9')
+                {
+                    Console.Write("Nine Hundred ");
+                    sum += "Nine Hundred".Replace(" ", "").Length;
+                }
+
+                if (int.Parse(aye.Substring(1, 1)) > 0 && aye.Substring(2, 2) != "00")
+                {
+                    Console.Write("And ");
+                    sum += "And".Replace(" ", "").Length;
+                }
+
+
+                if (aye.Substring(2,2) == "10")
+                {
+                    Console.WriteLine("Ten");
+                    sum += "Ten".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "11")
+                {
+                    Console.WriteLine("Eleven");
+                    sum += "Eleven".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "12")
+                {
+                    Console.WriteLine("Twelve");
+                    sum += "Twelve".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "13")
+                {
+                    Console.WriteLine("Thirteen");
+                    sum += "Thirteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "14")
+                {
+                    Console.WriteLine("Fourteen");
+                    sum += "Fourteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "15")
+                {
+                    Console.WriteLine("Fifteen");
+                    sum += "Fifteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "16")
+                {
+                    Console.WriteLine("Sixteen");
+                    sum += "Sixteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "17")
+                {
+                    Console.WriteLine("Seventeen");
+                    sum += "Seventeen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "18")
+                {
+                    Console.WriteLine("Eighteen");
+                    sum += "Eighteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye.Substring(2,2) == "19")
+                {
+                    Console.WriteLine("Nineteen");
+                    sum += "Nineteen".Replace(" ", "").Length;
+                    continue;
+                }
+                else if (aye[2].ToString() == "2" && aye.Length > 1)
+                {
+                    Console.Write("Twenty ");
+                    sum += "Twenty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "3" && aye.Length > 1)
+                {
+                    Console.Write("Thirty ");
+                    sum += "Thirty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "4" && aye.Length > 1)
+                {
+                    Console.Write("Forty ");
+                    sum += "Forty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "5" && aye.Length > 1)
+                {
+                    Console.Write("Fifty ");
+                    sum += "Fifty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "6" && aye.Length > 1)
+                {
+                    Console.Write("Sixty ");
+                    sum += "Sixty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "7" && aye.Length > 1)
+                {
+                    Console.Write("Seventy ");
+                    sum += "Seventy".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "8" && aye.Length > 1)
+                {
+                    Console.Write("Eighty ");
+                    sum += "Eighty".Replace(" ", "").Length;
+                }
+                else if (aye[2].ToString() == "9" && aye.Length > 1)
+                {
+                    Console.Write("Ninety ");
+                    sum += "Ninety".Replace(" ", "").Length;
+                }
+
+                if (aye[3].ToString() == "1")
+                {
+                    Console.Write("One");
+                    sum += "One".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "2")
+                {
+                    Console.Write("Two");
+                    sum += "Two".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "3")
+                {
+                    Console.Write("Three");
+                    sum += "Three".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "4")
+                {
+                    Console.Write("Four");
+                    sum += "Four".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "5")
+                {
+                    Console.Write("Five");
+                    sum += "Five".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "6")
+                {
+                    Console.Write("Six");
+                    sum += "Six".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "7")
+                {
+                    Console.Write("Seven");
+                    sum += "Seven".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "8")
+                {
+                    Console.Write("Eight");
+                    sum += "Eight".Replace(" ", "").Length;
+                }
+                else if (aye[3].ToString() == "9")
+                {
+                    Console.Write("Nine");
+                    sum += "Nine".Replace(" ", "").Length;
+                }
+
+                else
+                {
+                    //Console.Write(aye);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}

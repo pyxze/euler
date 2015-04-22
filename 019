@@ -1,0 +1,29 @@
+// Such a hack... And very much "inspired" by http://stackoverflow.com/questions/248273/count-number-of-mondays-in-a-given-date-range
+// But I'm primarily practicing my C#, so... ;)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _019
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int sum = 0;
+            DateTime startDate = new DateTime(1901, 1, 1);
+            DateTime endDate = new DateTime(2000, 12, 31);
+            for (DateTime dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+            {
+                if ((dt.DayOfWeek == DayOfWeek.Sunday) && (dt.Day == 1))
+                {
+                    sum += 1;
+                }
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}

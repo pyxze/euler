@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _020
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            BigInteger bi = new BigInteger(1);
+            for (int i = 100; i > 0; i--)
+            {
+                bi *= i;
+            }
+            var biString = bi.ToString();
+            int sum = 0;
+            foreach (var c in biString)
+            {
+                sum += int.Parse(c.ToString());
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}

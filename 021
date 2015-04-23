@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _021
+{
+    class Program
+    {
+        public struct Amicable
+        {
+            public int n;
+            public int sum;
+        }
+
+        static void Main(string[] args)
+        {
+            int x = 10000;
+            List<Amicable> amicable = new List<Amicable>();
+            int grandSum = 0;
+            for (int i = 1; i < x; i++)
+            {
+                List<int> divisors = new List<int>();
+                for (int j = 1; j < i; j++ )
+                {
+                    if (i % j == 0)
+                    {
+                        divisors.Add(j);
+                    }
+                }
+                int sum = 0;
+                foreach (var e in divisors)
+                {
+                    sum += e;
+                }
+                Amicable a = new Amicable();
+                a.n = i;
+                a.sum = sum;
+                amicable.Add(a);
+            }
+
+            foreach (var a1 in amicable)
+            {
+                foreach (var a2 in amicable)
+                {
+                    if ((a1.n == a2.sum) && (a1.sum == a2.n) && (a1.n != a2.n))
+                    {
+                        grandSum += a1.n + a2.n;
+                    }
+                }
+            }
+
+            // Hacky fix to double inclusion of amicable numbers in sum...
+            Console.WriteLine(grandSum/2);
+        }
+    }
+}

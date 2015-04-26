@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _024
+{
+    class Program
+    {
+        private static void Permute(int digit, List<int> digitsHead, List<int> digitsTail)
+        {
+            var digitsHeadCopy = new List<int>(digitsHead);
+            digitsHeadCopy.Add(digit);
+            var digitsTailCopy = new List<int>(digitsTail);
+            digitsTailCopy.Remove(digit);
+            if (digitsTailCopy.Count == 0)
+            {
+                count++;
+                Console.Write(count + ": ");
+                foreach (var digitHead in digitsHeadCopy)
+                {
+                    Console.Write(digitHead);
+                }
+                Console.WriteLine();
+                if (count == 1000000)
+                {
+                    Console.Read();
+                }
+            }
+            foreach (var n in digitsTailCopy)
+            {
+                Permute(n, digitsHeadCopy, digitsTailCopy);
+            }
+        }
+
+        static int count = 0;
+
+        static void Main(string[] args)
+        {
+            List<int> digitsTail = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<int> digitsHead = new List<int>();
+            foreach (var digit in digitsTail)
+            {
+                Permute(digit, digitsHead, digitsTail);
+            }
+
+        }
+
+    }
+}

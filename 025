@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace _025
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            BigInteger last = 1;
+            BigInteger next = 1;
+            BigInteger tmp;
+            int count = 2;
+            while (next.ToString().Length < 1000)
+            {
+                tmp = next;
+                next = next + last;
+                last = tmp;
+                Console.WriteLine(++count + ": " + next.ToString().Length + ": " + next);
+            }
+        }
+    }
+}

@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _023
+{
+    public class Number
+    {
+        public int n;
+        public int sum;
+        public Abundance abundance;
+
+        public enum Abundance
+        {
+            deficient,
+            perfect,
+            abundant
+        };
+    }
+    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var target = 28123;
+            var numbers = new List<Number>();
+            for (int i = 1; i < target; i++)
+            {
+                int sum = 0;
+                var number = new Number();
+                for (int j = 1; j < i; j++)
+                {
+                    if (i%j == 0)
+                    {
+                        sum += j;
+                    }
+                }
+                number.n = i;
+                number.sum = sum;
+                if (i == sum)
+                {
+                    number.abundance = Number.Abundance.perfect;
+                }
+                else if (i > sum)
+                {
+                    number.abundance = Number.Abundance.deficient;
+                }
+                else
+                {
+                    number.abundance = Number.Abundance.abundant;
+                }
+                numbers.Add(number);
+            }
+            foreach (var n in numbers)
+            {
+                Console.WriteLine(n.n + " " + n.abundance);
+            }
+
+            int abundantSum = 0;
+            for (int i = 1; i <= target; i++)
+            {
+                var notSumOfTwoAbundant = true;
+                foreach (var a in numbers)
+                {
+                    foreach (var b in numbers)
+                    {
+                        if (a.abundance == Number.Abundance.abundant && b.abundance == Number.Abundance.abundant && (i - a.n - b.n == 0))
+                        {
+                            notSumOfTwoAbundant = false;
+                        }
+                    }
+                }
+                if (notSumOfTwoAbundant)
+                {
+                    abundantSum += i;
+                }
+            }
+            Console.WriteLine(abundantSum);
+        }
+    }
+}

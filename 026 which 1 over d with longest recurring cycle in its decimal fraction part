@@ -1,0 +1,249 @@
+// Ran into some trouble with this one. Ended up having to do it in python because I
+// couldn't figure out how to get the precision I needed.
+//
+// I tried solving it with a suffix tree, but couldn't figure out how to handle
+// repeated digits, such as 66666666666.
+//
+// I ultimately looked up the answer then struggled for a while trying to work
+// backwards before finding a much simpler regex solution for finding
+// repetitions in a string that could be adapted for this problem.
+
+from decimal import *
+import re
+
+index = 0
+max = 0
+
+for i in range(1000):
+    getcontext().prec = 2000
+    s = (str)(Decimal(1) / Decimal(i + 1))
+    r = re.compile(r"(.+?)\1+")
+    for match in r.finditer(s):
+        print i + 1, match.group(1), len(match.group(0)), len(match.group(1))
+        if (len(match.group(1)) > max):
+            index = i + 1
+            max = len(match.group(1))
+
+print index, max
+
+~
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using Numerics;
+using System.Text.RegularExpressions;
+
+namespace _026
+{
+    class Program
+    {
+        public class Node
+        {
+            public string id;
+
+            public Node(string id)
+            {
+                this.id = id;
+            }
+
+            public Node()
+            {
+            }
+
+            public List<Node> AdjacencyList = new List<Node>();
+
+            public void Add(Node node, string sub)
+            {
+                string c = sub.Substring(0, 1);
+                var tmp = node.AdjacencyList.Where(x => x.id == c);
+                if (tmp.Count() == 0)
+                {
+                    Node tmpNode = new Node(c);
+                    node.AdjacencyList.Add(tmpNode);
+                    if (sub.Length > 1)
+                    {
+                        node.Add(tmpNode, sub.Substring(1));
+                    }
+                }
+                else
+                {
+
+                    if (sub.Length > 1)
+                    {
+                        node.Add(tmp.First(), sub.Substring(1));
+                    }
+                }
+            }
+
+            public void Print(Node n)
+            {
+                foreach (var a in n.AdjacencyList)
+                {
+                    Console.Write(a.id);
+                    if (a.AdjacencyList.Count == 0)
+                    {
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        a.Print(a);
+                    }
+                }
+            }
+
+            static public int level = -1;
+            static public string match = "";
+            static public int length = 0;
+            static public int i = 0;
+
+            public void Search(Node n, int level, string match, int i)
+            {
+                foreach (var a in n.AdjacencyList)
+                {
+                    string current = match + a.id;
+                    if (a.AdjacencyList.Count > 0)
+                    {
+                        if ((level > Node.level) && (a.AdjacencyList.Count > 1) && (current.Length > Node.length))
+                        {
+                            Node.level = level;
+                            Node.match = current;
+                            Node.length = current.Length;
+                            Node.i = i;
+                        }
+
+                        a.Search(a, level++, current, i);
+                    }
+                }
+            }
+
+        }
+
+        static void Main(string[] args)
+        {
+            // int length = 9; // 891
+            //int length = 12;
+            //for (int length = 9; ; length++ )
+            //{
+            //    for (decimal i = 2; i < 1000; i++)
+            //    {
+            //        string n = (1 / i).ToString().Substring(2);
+            //        if (n.Length > length)
+            //        {
+            //            Dictionary<string, string> dict = new Dictionary<string, string>();
+            //            for (int j = 1; j * length < n.Length - length; j++)
+            //            {
+            //                string sub = n.Substring(j * length, length);
+            //                if (dict.ContainsKey(sub))
+            //                {
+            //                    Console.WriteLine(i + ": " + n);
+            //                    //length++;
+            //                    break;
+            //                }
+            //                else
+            //                {
+            //                    dict.Add(sub, sub);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    Console.WriteLine(length);
+            //    Console.ReadLine();
+            //}
+
+
+
+            //for (int i = 2; i < 1000; i++)
+            //{
+            //    var r = new BigRational(1, i);
+            //    string test = ((decimal)r).ToString() + "$";
+            //    Node root = new Node();
+            //    for (int j = 0; j < test.Length; j++)
+            //    {
+            //        var sub = test.Substring(test.Length - j - 1, j + 1);
+            //        //Console.WriteLine(sub);
+            //        root.Add(root, sub);
+            //    }
+            //    root.Search(root, 0, "", i);
+            //}
+
+            //string test = "bbaabbaabbaabbaa$";
+            //string test = "bbaabbaa$";
+            //string test = "12121212x$";
+
+            //int last = 0;
+            //int current = 0;
+            //string match = "";
+            //string lastMatch;
+
+            ////do
+            ////{
+            //    last = current;
+            //    lastMatch = match;
+            //    Node root = new Node();
+            //    for (int j = 0; j < test.Length; j++)
+            //    {
+            //        var sub = test.Substring(test.Length - j - 1, j + 1);
+            //        //Console.WriteLine(sub);
+            //        root.Add(root, sub);
+            //    }
+            //    root.Search(root, 0, "", 0);
+            //    test = Node.match + "$";
+            //    current = Node.length;
+            //    match = Node.match;
+            //    Node.level = -1;
+            //    Node.match = "";
+            //    Node.length = 0;
+            //    Node.i = 0;
+            ////}
+            //while ((current != last) && (match != ""));
+
+
+            //Console.WriteLine(match);
+
+            //int length = 0;
+            //int d = 0;
+            //for (int i = 2; i < 1000; i++)
+            //{
+            //    Console.WriteLine(i);
+            //    var r = new BigRational(1, i);
+            //    string input = ((decimal)r).ToString() + "$";
+            //    input = input.Replace(".", "");
+            //    input = input.TrimStart('0');
+            //    string pattern = @"(.+?)(.+?)(.+?)(.+?)(.+?)\1+";
+            //    Match match = Regex.Match(input, pattern);
+            //    //Console.Write("Match: '{0}'", match.Value);
+            //    for (int ctr = 1; ctr < match.Groups.Count; ctr++)
+            //    {
+            //        //Console.Write("   Group {0}: '{1}'", ctr, match.Groups[ctr].Value);
+            //        int capCtr = 0;
+            //        foreach (Capture capture in match.Groups[ctr].Captures)
+            //        {
+            //            //Console.WriteLine("      Capture {0}: '{1}'", capCtr, capture.Value);
+            //            capCtr++;
+            //            if (capture.Value.Length > length)
+            //            {
+            //                length = capture.Value.Length;
+            //                d = i;
+            //                Console.WriteLine(d + " : " + input);
+            //            }
+            //        }
+            //        //Console.Read();
+            //    }
+            //}
+            //Console.WriteLine(d);
+
+            var r = new BigRational(1, 983);
+            string input = ((decimal)r).ToString();
+            Console.WriteLine(input);
+
+
+        }
+
+
+    }
+}
